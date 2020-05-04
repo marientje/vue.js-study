@@ -1,0 +1,7 @@
+#todo_app ul {
+  list-style: none;
+}
+
+#todo_app li > span.done {
+  text-decoration: line-through;
+}
