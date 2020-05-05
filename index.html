@@ -21,11 +21,33 @@
           <button v-on:click="deleteItem(index)">Delete</button>
         </li>
       </ul>
+      <!-- デバッグ用 -->
       <!-- <pre>{{ $data }}</pre> -->
     </div>
-    <div id="bitcoin">
+
+    <div id="bitcoin_app">
+      <h2>
+        Bitcoin Price
+      </h2>
+      <section v-if="hasError">
+        An Error has occurred.
+      </section>
+      <section v-else>
+        <div v-if="loading">
+          Loading...
+        </div>
+        <div v-else>
+          <ul v-cloak>
+            <li v-for="(rate, currency) in bpi">
+              {{ currency }} : {{ rate.rate_float | currencyDecimal }}
+            </li>
+          </ul>
+        </div>
+      </section>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <!-- HTTP client -->
+    <script src="https://cdn.jsdelivr.net/npm/axios@0.18.0/dist/axios.min.js"></script>
     <script src="js/main.js"></script>
   </body>
 </html>
