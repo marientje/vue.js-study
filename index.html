@@ -6,7 +6,7 @@
   </head>
   <body>
     <div id="todo_app">
-      <h2> TODO List</h2>
+      <h2 v-html="todoTitle"></h2>
       <!-- formのsubmitイベントによるページreloadを防ぐため、 submitイベントを無効にする-->
       <form v-on:submit.prevent>
         <input type="text" v-model="newItem">
@@ -14,10 +14,13 @@
           Add
         </button>
       </form>
-      <ul>
+      <ul v-cloak>
         <li v-for="(todo, index) in todos">
           <input type="checkbox" v-model="todo.isDone">
-          <span v-bind:class="{ done: todo.isDone }">{{ todo.item }}</span>
+          <!-- v-bind完全構文 -->
+          <!-- <span v-bind:class="{ done: todo.isDone }">{{ todo.item | readMore(20, '...')}}</span> -->
+          <!-- v-bind省略記法 -->
+          <span :class="{ done: todo.isDone }">{{ todo.item | readMore(20, '...')}}</span>
           <button v-on:click="deleteItem(index)">Delete</button>
         </li>
       </ul>

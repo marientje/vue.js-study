@@ -1,8 +1,22 @@
+// global filter
+Vue.filter('numberFormat', function(value) {
+  // 整数部分を3桁毎に区切り文字を挿入した形式で文字列に変換
+  return value.toLocaleString()
+})
+Vue.filter('readMore', function(text, max_length, suffix){
+  if(text.length > max_length) {
+    return text.substring(0, max_length) + suffix
+  } else {
+    return text
+  }
+})
+
 var todoApp = new Vue({
   el: '#todo_app',
   data: {
     newItem: '',
-    todos: []
+    todos: [],
+    todoTitle: '<span style="color:blue;">TODO List</span>'
   },
   methods: {
     addItem: function(e) {
@@ -43,6 +57,7 @@ var bitcoinApp = new Vue({
       this.loading = false
     }.bind(this))
   },
+  // local filter
   filters: {
     currencyDecimal(value) {
       return value.toFixed(2)
