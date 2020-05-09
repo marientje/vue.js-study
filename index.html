@@ -7,6 +7,9 @@
   <body>
     <div id="todo_app">
       <h2 v-html="todoTitle"></h2>
+      <p>
+        {{ reversedMessage }}
+      </p>
       <!-- formのsubmitイベントによるページreloadを防ぐため、 submitイベントを無効にする-->
       <form v-on:submit.prevent>
         <input type="text" v-model="newItem">
@@ -42,11 +45,23 @@
         <div v-else>
           <ul v-cloak>
             <li v-for="(rate, currency) in bpi">
-              {{ currency }} : {{ rate.rate_float | currencyDecimal }}
+              {{ currency }} : {{ rate.rate_float | currencyDecimal }} 
             </li>
           </ul>
         </div>
       </section>
+    </div>
+
+    <div id="tax_app">
+      <h2>
+        Tax calculation
+      </h2>
+      <p>
+        base price: <input type="text" v-model ="basePrice">
+      </p>
+      <p>
+        tax included price: <input type="text" v-model="taxIncludedPrice">
+      </p>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
     <!-- HTTP client -->

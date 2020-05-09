@@ -16,7 +16,8 @@ var todoApp = new Vue({
   data: {
     newItem: '',
     todos: [],
-    todoTitle: '<span style="color:blue;">TODO List</span>'
+    todoTitle: '<span style="color:blue;">TODO List</span>',
+    message: 'Have a nice day!'
   },
   methods: {
     addItem: function(e) {
@@ -33,7 +34,13 @@ var todoApp = new Vue({
     deleteItem: function(index) {
       this.todos.splice(index, 1)
     }
-  } 
+  },
+  // 算出プロパティ
+  computed: {
+    reversedMessage: function() {
+      return this.message.split('').reverse().join('')
+    }
+  }
 })
 
 var bitcoinApp = new Vue({
@@ -61,6 +68,35 @@ var bitcoinApp = new Vue({
   filters: {
     currencyDecimal(value) {
       return value.toFixed(2)
+    }
+  }
+})
+
+var taxApp = new Vue({
+  el: '#tax_app',
+  data: {
+    basePrice: 100
+  },
+  computed: {
+    taxIncludedPrice: {
+      get: function() {
+        return parseInt(this.basePrice * 1.10)
+      },
+      set: function(taxIncludedPrice) {
+        this.basePrice = Math.ceil(taxIncludedPrice / 1.10)
+      }
+    }
+  },
+  // 監視プロパティ
+  watch: {
+    basePrice: {
+      handler: function(newValue, oldValue) {
+        console.log('new: %s, old: %s', newValue, oldValue)
+      },
+      // 初期読み込み時にも監視プロパティを呼び出す
+      immediate: true
+      // ネストされたオブジェクトも監視する場合は設定
+      // deep: true
     }
   }
 })
